@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Cuenta.cs" />
+    <Compile Include="Models\Ropa.cs" />
+    <Compile Include="Models\TipoRopa.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Views\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,8 +103,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
+    <Folder Include="ToInclude\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
