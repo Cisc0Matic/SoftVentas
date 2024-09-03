@@ -1,5 +1,6 @@
 public class Cliente
 {
+    public int idCliente { get; set; }
     public string NombreCompleto { get; set; }
     public string Telefono1 { get; set; }
     public string Telefono2 { get; set; }
@@ -9,8 +10,9 @@ public class Cliente
     public Cliente() {}
 
     // Constructor con parámetros
-    public Cliente(string nombreCompleto, string telefono1, string telefono2, string mail)
+    public Cliente(int idCliente, string nombreCompleto, string telefono1, string telefono2, string mail)
     {
+        idCliente = idCliente;
         NombreCompleto = nombreCompleto;
         Telefono1 = telefono1;
         Telefono2 = telefono2;

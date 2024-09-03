@@ -30,7 +30,6 @@ namespace SoftVentas
             if (f2.Visible)
             {
                 this.Hide();
-
             }
         }
     }
