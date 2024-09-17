@@ -12,11 +12,11 @@ public class Cliente
     // Constructor con parámetros
     public Cliente(int idCliente, string nombreCompleto, string telefono1, string telefono2, string mail)
     {
-        idCliente = idCliente;
-        NombreCompleto = nombreCompleto;
-        Telefono1 = telefono1;
-        Telefono2 = telefono2;
-        Mail = mail;
+        this.idCliente = idCliente; // Usar 'this' para distinguir entre el campo y el parámetro
+        this.NombreCompleto = nombreCompleto;
+        this.Telefono1 = telefono1;
+        this.Telefono2 = telefono2;
+        this.Mail = mail;
     }
 }
 
@@ -40,9 +40,12 @@ public class Cliente
 // }
 
 //  // Getters
-//     public string NombreCompleto {
+//     public string getNombreCompleto {
+// this.nombrecompleto = nonmbrecompleto;
+//}
 //         get { return nombreCompleto; }
 //         set { nombreCompleto = value; }
+
 //     }
 
 //     public string Mail {

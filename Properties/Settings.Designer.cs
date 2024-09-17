@@ -33,5 +33,16 @@ namespace SoftVentas.Properties {
                 return ((string)(this["ventas_softConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-4HQPT78\\SQLEXPRESS;Initial Catalog=ventas_soft;Integrated Sec" +
+            "urity=True;Encrypt=False;TrustServerCertificate=True")]
+        public string ventas_softConnectionString1 {
+            get {
+                return ((string)(this["ventas_softConnectionString1"]));
+            }
+        }
     }
 }
