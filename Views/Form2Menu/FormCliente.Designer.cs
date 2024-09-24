@@ -36,22 +36,23 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ventas_softDataSet = new SoftVentas.ventas_softDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ventassoftDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.ventassoftDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.ventas_softDataSet1 = new SoftVentas.ventas_softDataSet1();
-            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.clienteTableAdapter = new SoftVentas.ventas_softDataSet1TableAdapters.clienteTableAdapter();
             this.clienteIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreCompletoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ventas_softDataSet1 = new SoftVentas.ventas_softDataSet1();
+            this.ventassoftDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.ventassoftDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.clienteTableAdapter = new SoftVentas.ventas_softDataSet1TableAdapters.clienteTableAdapter();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ventassoftDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ventassoftDataSetBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox4
@@ -68,8 +69,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
-            this.button1.Text = "agregar cliente";
+            this.button1.Text = "Agregar cliente";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // textBox3
             // 
@@ -118,30 +120,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(544, 150);
             this.dataGridView1.TabIndex = 10;
             // 
-            // ventassoftDataSetBindingSource
-            // 
-            this.ventassoftDataSetBindingSource.DataSource = this.ventas_softDataSet;
-            this.ventassoftDataSetBindingSource.Position = 0;
-            // 
-            // ventassoftDataSetBindingSource1
-            // 
-            this.ventassoftDataSetBindingSource1.DataSource = this.ventas_softDataSet;
-            this.ventassoftDataSetBindingSource1.Position = 0;
-            // 
-            // ventas_softDataSet1
-            // 
-            this.ventas_softDataSet1.DataSetName = "ventas_softDataSet1";
-            this.ventas_softDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // clienteBindingSource
-            // 
-            this.clienteBindingSource.DataMember = "cliente";
-            this.clienteBindingSource.DataSource = this.ventas_softDataSet1;
-            // 
-            // clienteTableAdapter
-            // 
-            this.clienteTableAdapter.ClearBeforeFill = true;
-            // 
             // clienteIDDataGridViewTextBoxColumn
             // 
             this.clienteIDDataGridViewTextBoxColumn.DataPropertyName = "ClienteID";
@@ -173,11 +151,46 @@
             this.mailDataGridViewTextBoxColumn.HeaderText = "Mail";
             this.mailDataGridViewTextBoxColumn.Name = "mailDataGridViewTextBoxColumn";
             // 
+            // clienteBindingSource
+            // 
+            this.clienteBindingSource.DataMember = "cliente";
+            this.clienteBindingSource.DataSource = this.ventas_softDataSet1;
+            // 
+            // ventas_softDataSet1
+            // 
+            this.ventas_softDataSet1.DataSetName = "ventas_softDataSet1";
+            this.ventas_softDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // ventassoftDataSetBindingSource
+            // 
+            this.ventassoftDataSetBindingSource.DataSource = this.ventas_softDataSet;
+            this.ventassoftDataSetBindingSource.Position = 0;
+            // 
+            // ventassoftDataSetBindingSource1
+            // 
+            this.ventassoftDataSetBindingSource1.DataSource = this.ventas_softDataSet;
+            this.ventassoftDataSetBindingSource1.Position = 0;
+            // 
+            // clienteTableAdapter
+            // 
+            this.clienteTableAdapter.ClearBeforeFill = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(493, 304);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 11;
+            this.button2.Text = "Recargar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // FormCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(598, 343);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button1);
@@ -190,10 +203,10 @@
             this.Load += new System.EventHandler(this.FormCliente_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ventassoftDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ventassoftDataSetBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -218,5 +231,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono1DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono2DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn mailDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button2;
     }
 }

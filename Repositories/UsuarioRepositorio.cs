@@ -1,73 +1,70 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace SoftVentas.Repositories
 {
     public class UsuarioRepositorio
     {
-        private string connectionString;
+        private readonly string connectionString;
 
         public UsuarioRepositorio()
         {
             connectionString = ConfigurationManager.ConnectionStrings["SoftVentas.Properties.Settings.ventas_softConnectionString1"].ConnectionString;
         }
 
-        // Método para registrar un usuario
-        public bool RegistrarUsuario(Usuario usuario)
+        public bool RegistrarUsuario(string nombreUsuario, string password, string email)
         {
-            // Consulta para insertar el usuario
-            string query = "INSERT INTO Usuarios (NombreUsuario, Password, Email) VALUES (@NombreUsuario, @Password, @Email)";
+            const string query = "INSERT INTO Usuarios (NombreUsuario, Password, Email) VALUES (@NombreUsuario, @Password, @Email)";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(query, connection))
             {
-                // Añadir parámetros a la consulta
-                command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-                command.Parameters.AddWithValue("@Password", usuario.Password); // Contraseña sin hash
-                command.Parameters.AddWithValue("@Email", usuario.Email);
+                command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
+                command.Parameters.AddWithValue("@Password", password);
+                command.Parameters.AddWithValue("@Email", email);
 
                 try
                 {
-                    // Abrir conexión y ejecutar consulta
                     connection.Open();
                     int result = command.ExecuteNonQuery();
                     return result > 0; // Retorna true si la inserción fue exitosa
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Manejo de errores simple
+                    // Para depuración, puedes imprimir el error
+                    Console.WriteLine($"Error al registrar el usuario: {ex.Message}");
                     return false;
                 }
             }
         }
 
-        // Método para autenticar un usuario
-        public bool AutenticarUsuario(Usuario usuario)
-        {
-            // Consulta para verificar el usuario
-            string query = "SELECT COUNT(1) FROM Usuarios WHERE NombreUsuario = @NombreUsuario AND Password = @Password";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            using (SqlCommand command = new SqlCommand(query, connection))
+        public bool AutenticarUsuario(string email, string password)
+        {
+            const string query = "SELECT COUNT(1) FROM Usuarios WHERE Email = @Email AND Password = @Password";
+
+            using (var connection = new SqlConnection(connectionString))
+            using (var command = new SqlCommand(query, connection))
             {
-                // Añadir parámetros a la consulta
-                command.Parameters.AddWithValue("@NombreUsuario", usuario.NombreUsuario);
-                command.Parameters.AddWithValue("@Password", usuario.Password); // Contraseña sin hash
+                command.Parameters.AddWithValue("@Email", email); // Corregido el parámetro
+                command.Parameters.AddWithValue("@Password", password);
 
                 try
                 {
-                    // Abrir conexión y ejecutar consulta
                     connection.Open();
-                    int count = (int)command.ExecuteScalar();
-                    return count > 0; // Retorna true si el usuario existe
+                    return (int)command.ExecuteScalar() > 0;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // Manejo de errores simple
+                    // Para depuración, puedes imprimir el error
+                    MessageBox.Show($"Error al autenticar el usuario: {ex.Message}");
+                   // Console.WriteLine($"Error al autenticar el usuario: {ex.Message}");
                     return false;
                 }
             }
         }
+
     }
 }

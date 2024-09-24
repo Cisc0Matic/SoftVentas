@@ -6,10 +6,10 @@ public class Usuario
     public string Email { get; set; }
 
     // Constructor por defecto
-    public Usuario() {}
+    public Usuario() { }
 
     // Constructor con parámetros
-    public Usuario(string nombreUsuario, string password , string email)
+    public Usuario(string nombreUsuario, string password, string email)
     {
         NombreUsuario = nombreUsuario;
         Password = password;

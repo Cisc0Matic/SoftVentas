@@ -7,44 +7,106 @@ namespace SoftVentas
 {
     public partial class Form1 : Form
     {
+        bool isClickedOnce = false;
+        bool isClickedOnce2 = false;
+
+
         private UsuarioRepositorio repositorio;
 
         public Form1()
         {
             InitializeComponent();
-            repositorio = new UsuarioRepositorio(); // Inicializa el repositorio
-            lblUser.Visible = false; // Inicialmente ocultar controles
+            repositorio = new UsuarioRepositorio(); // se inicializa el repositorio
+            InicializarFormulario(); 
+        }
+
+        private void InicializarFormulario()
+        {
+            // Inicialmente ocultar controles
+            lblUser.Visible = false;
             txtUser.Visible = false;
+            textBox1.Visible = true; // Asumiendo que este es el campo de correo electrónico
+            textBox2.Visible = true; // Asumiendo que este es el campo de contraseña
+            button1.Visible = true; // Solo mostrar el botón de inicio de sesión inicialmente
+            button2.Visible = false; // Ocultar el botón de registro inicialmente
             textBox2.UseSystemPasswordChar = true; // Ocultar texto de contraseña
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Mostrar campos de usuario y contraseña
+            // Hacer visible algunos componentes para el registro
             lblUser.Visible = true;
             txtUser.Visible = true;
             textBox1.Visible = true;
             textBox2.Visible = true;
-            button1.Visible = true;
-            //btnLogin.Visible = true;
+            button1.Visible = false; // Ocultar botón de inicio de sesión
+            button2.Visible = true; // Mostrar botón de registro
         }
 
-        private void btnRegister_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            // Crear un nuevo usuario con los datos del formulario
-            Usuario nuevoUsuario = new Usuario
+            // Manejo del inicio de sesión
+            string email = textBox1.Text.Trim();
+            string password = textBox2.Text.Trim();
+
+            bool autenticado = repositorio.AutenticarUsuario(email, password);
+
+            if (autenticado)
             {
-                NombreUsuario = txtUser.Text,
-                Password = textBox2.Text,
-                Email = textBox1.Text
-            };
+                MessageBox.Show("Login exitoso!");
+                Form2 f2 = new Form2();
+                f2.Visible = true;
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Nombre de usuario o contraseña incorrectos.");
+            }
+        }
 
-            // Llamar al método RegistrarUsuario del repositorio
-            bool registroExitoso = repositorio.RegistrarUsuario(nuevoUsuario);
+        private void button2_Click(object sender, EventArgs e)
+        {
+           
+        }
 
-            if (registroExitoso = true)
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            // Obtén los datos ingresados
+            string nombreUsuario = txtUser.Text.Trim();
+            string password = textBox2.Text.Trim();
+            string email = textBox1.Text.Trim();
+
+            // Validaciones de los datos
+            if (string.IsNullOrEmpty(nombreUsuario))
+            {
+                MessageBox.Show("Ingrese un nombre de usuario válido.");
+                return;
+            }
+            if (string.IsNullOrEmpty(email) || !email.Contains("@"))
+            {
+                MessageBox.Show("Ingrese un correo electrónico válido.");
+                return;
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Ingrese una contraseña válida.");
+                return;
+            }
+
+            // Manejo del registro
+            bool registroExitoso = repositorio.RegistrarUsuario(nombreUsuario, password, email);
+
+            if (registroExitoso)
             {
                 MessageBox.Show("Usuario registrado exitosamente!");
+                // Opcional: Ocultar campos después del registro
+                lblUser.Visible = false;
+                txtUser.Visible = false;
+                textBox1.Visible = true;
+                textBox2.Visible = true;
+                button1.Visible = true; // Volver a mostrar el botón de inicio de sesión
+                button2.Visible = false; // Ocultar el botón de registro
+                textBox2.Text = "";
             }
             else
             {
@@ -52,96 +114,22 @@ namespace SoftVentas
             }
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private void isClicked1(object sender, EventArgs e)
         {
-            // Crear un usuario con los datos del formulario para autenticación
-            Usuario usuario = new Usuario
+            if (!isClickedOnce)
             {
-                NombreUsuario = txtUser.Text,
-                Password = textBox2.Text
-            };
-
-            // Llamar al método AutenticarUsuario del repositorio
-            bool autenticado = repositorio.AutenticarUsuario(usuario);
-
-            if (autenticado)
-            {
-                MessageBox.Show("Login exitoso!");
-                // Navegar a otro formulario si es necesario
-                // Form2 f2 = new Form2();
-                // f2.Visible = true;
-                // this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Nombre de usuario o contraseña incorrectos.");
+                textBox1.Text = string.Empty;
+                isClickedOnce = true;
             }
         }
 
-        // Otros métodos del formulario pueden permanecer igual
-        private void label1_Click(object sender, EventArgs e)
+        private void isClicked2(object sender, EventArgs e)
         {
-            // Código existente
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            // Código existente
-        }
-
-        private void log(object sender, MouseEventArgs e)
-        {
-            // Crear un usuario con los datos del formulario para autenticación
-            Usuario usuario = new Usuario
+            if (!isClickedOnce2)
             {
-                NombreUsuario = txtUser.Text,
-                Password = textBox2.Text
-            };
-
-            // Llamar al método AutenticarUsuario del repositorio
-            bool autenticado = repositorio.AutenticarUsuario(usuario);
-
-            if (autenticado)
-            {
-                MessageBox.Show("Login exitoso!");
-                Form2 f2 = new Form2();
-                f2.Visible = true;
-                if (f2.Visible)
-                {
-                    this.Hide();
-                }
+                textBox2.Text = string.Empty;
+                isClickedOnce = true;
             }
-            else
-            {
-                MessageBox.Show("Nombre de usuario o contraseña incorrectos.");
-            }
-            // Código existente para abrir Form2
-        
-        }
-
-        private void lblUser_Click(object sender, EventArgs e)
-        {
-            // Código existente
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-            // Código existente
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void isClicked(object sender, EventArgs e)
-        {
-            textBox1.Text = "";
-        }
-
-        private void txtB2_isClicked(object sender, EventArgs e)
-        {
-            textBox2.Text = "";
         }
     }
 }

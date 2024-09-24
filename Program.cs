@@ -1,4 +1,5 @@
-﻿using SoftVentas.Repositories;
+﻿using SoftVentas.Models;
+using SoftVentas.Repositories;
 using SoftVentas.Views;
 using System;
 using System.Collections.Generic;
@@ -20,10 +21,11 @@ namespace SoftVentas
             //UsuarioRepositorio repositorio = new UsuarioRepositorio();
 
             //// Prueba de autenticación
-            //Usuario usuario = new Usuario
+            //Usuario carlos = new Usuario
             //{
-            //    NombreUsuario = "testuser",
-            //    Password = "testpassword"
+            //    NombreUsuario = "Carlos",
+            //    Password = "1234",
+            //    Email = "carlos@gmail.com"
             //};
 
             //bool autenticado = repositorio.AutenticarUsuario(usuario);
@@ -40,14 +42,15 @@ namespace SoftVentas
             //bool registroExitoso = repositorio.RegistrarUsuario(nuevoUsuario);
             //Console.WriteLine($"Registro Exitoso: {registroExitoso}");
 
-            //// Pausa para ver resultados
-            //Console.WriteLine("Presiona cualquier tecla para salir...");
 
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
 
+
+            //Auto auto1 = new Auto();
+            //auto1.encenderAuto();
 
         }
     }

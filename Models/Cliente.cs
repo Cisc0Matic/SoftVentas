@@ -7,7 +7,7 @@ public class Cliente
     public string Mail { get; set; }
 
     // Constructor por defecto
-    public Cliente() {}
+    public Cliente() { }
 
     // Constructor con parámetros
     public Cliente(int idCliente, string nombreCompleto, string telefono1, string telefono2, string mail)
@@ -28,7 +28,7 @@ public class Cliente
 // float cuenta;
 
 // public Cliente(){
-    
+
 // }
 // //constructor lleno
 // public Cliente( String nombreCompleto,String mail,int telefono,int telefono2,float cuenta){

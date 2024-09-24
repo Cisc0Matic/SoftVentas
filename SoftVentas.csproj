@@ -65,11 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Auto.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Cuenta.cs" />
     <Compile Include="Models\Ropa.cs" />
     <Compile Include="Models\TipoRopa.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Repositories\ClienteRepositorio.cs" />
     <Compile Include="Repositories\UsuarioRepositorio.cs" />
     <Compile Include="ventas_softDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
