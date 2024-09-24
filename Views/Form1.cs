@@ -10,14 +10,17 @@ namespace SoftVentas
         bool isClickedOnce = false;
         bool isClickedOnce2 = false;
 
-
-        private UsuarioRepositorio repositorio;
+        // Repositorio alternativo que trabaja con una lista en memoria
+        public UsuarioRepositorio repositorio;
 
         public Form1()
         {
             InitializeComponent();
-            repositorio = new UsuarioRepositorio(); // se inicializa el repositorio
-            InicializarFormulario(); 
+            repositorio = new UsuarioRepositorio();
+            // Inicializamos el repositorio en memoria
+            repositorio.UsuarioRepositorioAlternativo();
+          //  repositorio.mostrarListaUsuarios();
+            InicializarFormulario();
         }
 
         private void InicializarFormulario()
@@ -25,11 +28,11 @@ namespace SoftVentas
             // Inicialmente ocultar controles
             lblUser.Visible = false;
             txtUser.Visible = false;
-            textBox1.Visible = true; // Asumiendo que este es el campo de correo electrónico
-            textBox2.Visible = true; // Asumiendo que este es el campo de contraseña
-            button1.Visible = true; // Solo mostrar el botón de inicio de sesión inicialmente
-            button2.Visible = false; // Ocultar el botón de registro inicialmente
-            textBox2.UseSystemPasswordChar = true; // Ocultar texto de contraseña
+            textBox1.Visible = true; 
+            textBox2.Visible = true; 
+            button1.Visible = true; 
+            button2.Visible = false; 
+            textBox2.UseSystemPasswordChar = true; 
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -39,16 +42,34 @@ namespace SoftVentas
             txtUser.Visible = true;
             textBox1.Visible = true;
             textBox2.Visible = true;
-            button1.Visible = false; // Ocultar botón de inicio de sesión
-            button2.Visible = true; // Mostrar botón de registro
+            button1.Visible = false; 
+            button2.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+          //  repositorio.mostrarListaUsuarios();
             // Manejo del inicio de sesión
             string email = textBox1.Text.Trim();
             string password = textBox2.Text.Trim();
 
+            // Usamos el repositorio alternativo en memoria para autenticar al usuario
+            bool autenticado = repositorio.AutenticarUsuario1(email, password);
+
+            if (autenticado)
+            {
+                MessageBox.Show("Login exitoso!");
+                Form2 f2 = new Form2();
+                f2.Visible = true;
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Nombre de usuario o contraseña incorrectos.");
+            }
+
+            // Lógica de autenticación con base de datos comentada
+            /*
             bool autenticado = repositorio.AutenticarUsuario(email, password);
 
             if (autenticado)
@@ -62,11 +83,7 @@ namespace SoftVentas
             {
                 MessageBox.Show("Nombre de usuario o contraseña incorrectos.");
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-           
+            */
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -93,7 +110,28 @@ namespace SoftVentas
                 return;
             }
 
-            // Manejo del registro
+            // Usamos el repositorio alternativo en memoria para registrar el usuario
+            bool registroExitoso = repositorio.RegistrarUsuario1(nombreUsuario, password, email);
+
+            if (registroExitoso)
+            {
+                MessageBox.Show("Usuario registrado exitosamente!");
+                // Opcional: Ocultar campos después del registro
+                lblUser.Visible = false;
+                txtUser.Visible = false;
+                textBox1.Visible = true;
+                textBox2.Visible = true;
+                button1.Visible = true; // Volver a mostrar el botón de inicio de sesión
+                button2.Visible = false; // Ocultar el botón de registro
+                textBox2.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Error al registrar el usuario.");
+            }
+
+            // Lógica de registro con base de datos comentada
+            /*
             bool registroExitoso = repositorio.RegistrarUsuario(nombreUsuario, password, email);
 
             if (registroExitoso)
@@ -112,6 +150,7 @@ namespace SoftVentas
             {
                 MessageBox.Show("Error al registrar el usuario.");
             }
+            */
         }
 
         private void isClicked1(object sender, EventArgs e)

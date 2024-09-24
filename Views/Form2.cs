@@ -15,12 +15,14 @@ namespace SoftVentas.Views
     {
         public Form2()
         {
-          
+
             InitializeComponent();
             //panel3 = new Panel();
             ////panel3.Hide = true;
             //panel3.Visible = false;
         }
+
+        //abrir el panel desde 
         private void abrirFormCli(object formhijo)
         {
             if (this.panel3.Controls.Count > 0)
@@ -48,6 +50,17 @@ namespace SoftVentas.Views
         }
 
         private void Form2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
         }

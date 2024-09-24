@@ -22,7 +22,7 @@ namespace SoftVentas.Views.Form2Menu
 
 
         }
-
+        // Metodo para listar los clientes de la BD en el DataGrid
         private void CargarClientesEnLista()
         {
             // Obtener la lista de clientes del repositorio
@@ -37,13 +37,13 @@ namespace SoftVentas.Views.Form2Menu
             this.clienteTableAdapter.Fill(this.ventas_softDataSet1.cliente);
 
         }
-        //evento del boton "agregar", cuando se apriete se guarda la info y se imprime el resultado en la lista
+        //eEvento del boton "agregar", cuando se apriete se guarda la info y se imprime el resultado en la lista
         private void button1_Click(object sender, EventArgs e)
         {
             // Obtén los datos ingresados
             string nombreCliente = textBox1.Text.Trim();
-            string telefono1String = textBox2.Text.Trim(); // Obtener texto del segundo TextBox
-            string telefono2String = textBox4.Text.Trim(); // Obtener texto del cuarto TextBox
+            string telefono1String = textBox2.Text.Trim(); 
+            string telefono2String = textBox4.Text.Trim(); 
             string email = textBox3.Text.Trim();
 
             // Validaciones de los datos
@@ -53,7 +53,7 @@ namespace SoftVentas.Views.Form2Menu
                 return;
             }
 
-            // Conversión de los teléfonos a int y validaciones
+            // Conversion de los teléfonos a int y validaciones
             if (!int.TryParse(telefono1String, out int telefono1) || telefono1 <= 0)
             {
                 MessageBox.Show("Ingrese un número de teléfono 1 válido.");
@@ -66,12 +66,12 @@ namespace SoftVentas.Views.Form2Menu
                 return;
             }
 
-            // Validación para el correo electrónico
-            if (string.IsNullOrEmpty(email) || !email.Contains("@"))
-            {
-                MessageBox.Show("Ingrese un correo electrónico válido.");
-                return;
-            }
+            //// Validacion para el correo electrónico
+            //if (string.IsNullOrEmpty(email) || !email.Contains("@"))
+            //{
+            //    MessageBox.Show("Ingrese un correo electrónico válido.");
+            //    return;
+            //}
 
             // El método registroExitoso espera 2 int para tel1 y tel2, porque así lo hice en la BD
             bool registroExitoso = repositorio.AgregarCliente(nombreCliente, telefono1, telefono2, email);
