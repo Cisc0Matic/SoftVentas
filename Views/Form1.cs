@@ -19,7 +19,7 @@ namespace SoftVentas
             repositorio = new UsuarioRepositorio();
             // Inicializamos el repositorio en memoria
             repositorio.UsuarioRepositorioAlternativo();
-          //  repositorio.mostrarListaUsuarios();
+            repositorio.mostrarListaUsuarios();
             InicializarFormulario();
         }
 
@@ -54,7 +54,7 @@ namespace SoftVentas
             string password = textBox2.Text.Trim();
 
             // Usamos el repositorio alternativo en memoria para autenticar al usuario
-            bool autenticado = repositorio.AutenticarUsuario1(email, password);
+            bool autenticado = repositorio.AutenticarUsuario(email, password);
 
             if (autenticado)
             {

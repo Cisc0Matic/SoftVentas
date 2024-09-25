@@ -26,11 +26,14 @@ namespace SoftVentas.Views.Form2Menu
         private void CargarClientesEnLista()
         {
             // Obtener la lista de clientes del repositorio
-            List<Cliente> listaClientes = repositorio.ObtenerCliente();
+            List<Cliente> listaClientes = repositorio.ObtenerClientes();
 
             // Asignar la lista como fuente de datos del DataGridView
-            dataGridView1.DataSource = listaClientes;
+            dataGridView1.DataSource = null; // Desvincula la lista anterior (si existía)
+            dataGridView1.DataSource = listaClientes; // Reasigna la nueva lista
+            dataGridView1.Refresh(); // Forzar el refresco del DataGridView
         }
+
         private void FormCliente_Load(object sender, EventArgs e)
         {
             // TODO: esta línea de código carga datos en la tabla 'ventas_softDataSet1.cliente' Puede moverla o quitarla según sea necesario.
@@ -42,8 +45,8 @@ namespace SoftVentas.Views.Form2Menu
         {
             // Obtén los datos ingresados
             string nombreCliente = textBox1.Text.Trim();
-            string telefono1String = textBox2.Text.Trim(); 
-            string telefono2String = textBox4.Text.Trim(); 
+            string telefono1 = textBox2.Text.Trim(); 
+            string telefono2 = textBox4.Text.Trim(); 
             string email = textBox3.Text.Trim();
 
             // Validaciones de los datos
@@ -52,19 +55,31 @@ namespace SoftVentas.Views.Form2Menu
                 MessageBox.Show("Ingrese un nombre válido.");
                 return;
             }
-
-            // Conversion de los teléfonos a int y validaciones
-            if (!int.TryParse(telefono1String, out int telefono1) || telefono1 <= 0)
+            // Validación para los teléfonos (se verifica si están vacíos en lugar de convertir a int)
+            if (string.IsNullOrEmpty(telefono1))
             {
                 MessageBox.Show("Ingrese un número de teléfono 1 válido.");
                 return;
             }
 
-            if (!int.TryParse(telefono2String, out int telefono2) || telefono2 <= 0)
+            if (string.IsNullOrEmpty(telefono2))
             {
                 MessageBox.Show("Ingrese un número de teléfono 2 válido.");
                 return;
             }
+
+            //// Conversion de los teléfonos a int y validaciones
+            //if (!int.TryParse(telefono1String, out int telefono1) || telefono1 <= 0)
+            //{
+            //    MessageBox.Show("Ingrese un número de teléfono 1 válido.");
+            //    return;
+            //}
+
+            //if (!int.TryParse(telefono2String, out int telefono2) || telefono2 <= 0)
+            //{
+            //    MessageBox.Show("Ingrese un número de teléfono 2 válido.");
+            //    return;
+            //}
 
             //// Validacion para el correo electrónico
             //if (string.IsNullOrEmpty(email) || !email.Contains("@"))
@@ -83,6 +98,7 @@ namespace SoftVentas.Views.Form2Menu
         private void button2_Click(object sender, EventArgs e)
         {
             CargarClientesEnLista();
+            //dataGridView1.Refresh(); 
         }
     }
 }
