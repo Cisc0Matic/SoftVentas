@@ -18,6 +18,13 @@ public class Cliente
         this.Telefono2 = telefono2;
         this.Mail = mail;
     }
+    public Cliente( string nombreCompleto, string telefono1, string telefono2, string mail)
+    {
+        this.NombreCompleto = nombreCompleto;
+        this.Telefono1 = telefono1;
+        this.Telefono2 = telefono2;
+        this.Mail = mail;
+    }
 }
 
 // public class Cliente {

@@ -71,6 +71,8 @@
     <Compile Include="Models\Ropa.cs" />
     <Compile Include="Models\TipoRopa.cs" />
     <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Persistence\ClientePersistence.cs" />
+    <Compile Include="Persistence\UsuarioPersistence.cs" />
     <Compile Include="Repositories\ClienteRepositorio.cs" />
     <Compile Include="Repositories\UsuarioRepositorio.cs" />
     <Compile Include="ventas_softDataSet.Designer.cs">

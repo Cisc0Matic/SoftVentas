@@ -1,128 +1,82 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Net.Configuration;
+using System.Windows.Forms;
+using SoftVentas.Persistence;
 
 namespace SoftVentas.Repositories
 {
     public class UsuarioRepositorio
     {
-        private readonly string connectionString;
+        private readonly List<Usuario> usuarios = new List<Usuario>();
+        private UsuariosPersistence usuariosPersistence;
 
         public UsuarioRepositorio()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["SoftVentas.Properties.Settings.ventas_softConnectionString1"].ConnectionString;
+            // Instancia de UsuariosPersistence para cargar la lista desde XML
+            usuariosPersistence = new UsuariosPersistence();
+            CargarUsuariosDesdePersistencia();
         }
-        string mensaje = "Lista de Usuarios:\n";
 
-        //public bool RegistrarUsuario(string nombreUsuario, string password, string email)
-        //{
-        //    const string query = "INSERT INTO Usuarios (NombreUsuario, Password, Email) VALUES (@NombreUsuario, @Password, @Email)";
-
-        //    using (var connection = new SqlConnection(connectionString))
-        //    using (var command = new SqlCommand(query, connection))
-        //    {
-        //        command.Parameters.AddWithValue("@NombreUsuario", nombreUsuario);
-        //        command.Parameters.AddWithValue("@Password", password);
-        //        command.Parameters.AddWithValue("@Email", email);
-
-        //        try
-        //        {
-        //            connection.Open();
-        //            int result = command.ExecuteNonQuery();
-        //            return result > 0; // Retorna true si la inserción fue exitosa
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Para depuración, puedes imprimir el error
-        //            Console.WriteLine($"Error al registrar el usuario: {ex.Message}");
-        //            return false;
-        //        }
-        //    }
-        //}
-
-
-        //public bool AutenticarUsuario(string email, string password)
-        //{
-        //    const string query = "SELECT COUNT(1) FROM Usuarios WHERE Email = @Email AND Password = @Password";
-
-        //    using (var connection = new SqlConnection(connectionString))
-        //    using (var command = new SqlCommand(query, connection))
-        //    {
-        //        command.Parameters.AddWithValue("@Email", email); // Corregido el parámetro
-        //        command.Parameters.AddWithValue("@Password", password);
-
-        //        try
-        //        {
-        //            connection.Open();
-        //            return (int)command.ExecuteScalar() > 0;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Para depuración, puedes imprimir el error
-        //            MessageBox.Show($"Error al autenticar el usuario: {ex.Message}");
-        //           // Console.WriteLine($"Error al autenticar el usuario: {ex.Message}");
-        //            return false;
-        //        }
-
-        //    }
-        //}
-
-        //--------- metodos de prueba sin conexión a bd ---------
-
-        // Lista de usuarios en memoria
-        private List<Usuario> usuarios;
-
-        public void UsuarioRepositorioAlternativo(){
-            usuarios = new List<Usuario>
+        // Cargar usuarios desde UsuariosPersistence
+        private void CargarUsuariosDesdePersistencia()
+        {
+            foreach (DataRow fila in usuariosPersistence.UsuariosTable.Rows)
             {
-                new Usuario { NombreUsuario = "admin", Password = "1234", Email = "admin@mail.com" },
-                new Usuario { NombreUsuario = "usuario1", Password = "password1", Email = "user1@mail.com" }
-            };
+                Usuario usuario = new Usuario
+                {
+                    NombreUsuario = fila["NombreUsuario"].ToString(),
+                    Password = fila["Password"].ToString(),
+                    Email = fila["Email"].ToString()
+                };
+                usuarios.Add(usuario);
+            }
         }
 
-        // Metodo para registrar un nuevo usuario en la lista
+        // Método para registrar un nuevo usuario tanto en la lista como en la persistencia
         public bool RegistrarUsuario1(string nombreUsuario, string password, string email)
         {
-            // Agregar el nuevo usuario a la lista
-            usuarios.Add(new Usuario
+            // Crear nuevo usuario y agregarlo a la lista
+            Usuario nuevoUsuario = new Usuario
             {
-                NombreUsuario = nombreUsuario, 
-                Password = password,           
-                Email = email                
-            });
+                NombreUsuario = nombreUsuario,
+                Password = password,
+                Email = email
+            };
+            usuarios.Add(nuevoUsuario);
 
-            MessageBox.Show("Usuario registrado exitosamente.");
+            // Insertar en la persistencia y guardar en el archivo XML
+            usuariosPersistence.InsertarUsuario(nuevoUsuario);
 
+            MessageBox.Show("Usuario registrado exitosamente en la lista y en el archivo XML.");
             return true;
         }
 
-        public void mostrarListaUsuarios()
-        {
-            foreach (var usuario in usuarios)
-            {
-                mensaje += $"Nombre: {usuario.NombreUsuario}, Email: {usuario.Email}\n";
-            }
-            MessageBox.Show(mensaje);
-        }
+        // Mostrar lista de usuarios
+
+        //public void mostrarListaUsuarios()
+        //{
+        //    string mensaje = "Lista de Usuarios:\n";
+        //    foreach (var usuario in usuarios)
+        //    {
+        //        mensaje += $"Nombre: {usuario.NombreUsuario}, Email: {usuario.Email}\n";
+        //    }
+        //    MessageBox.Show(mensaje);
+        //}
+
         // Método para autenticar un usuario
+
         public bool AutenticarUsuario(string email, string password)
         {
-            // Recorrer arreglo
-            foreach (var usuario in usuarios)
+            // Buscar el usuario en la lista cargada
+            var usuario = usuarios.FirstOrDefault(u => u.Email == email && u.Password == password);
+            if (usuario != null)
             {
-                // Condicion para ingreso, se comparan los datos
-                if (usuario.Email == email && usuario.Password == password)
-                {
-                    MessageBox.Show("Bienvenido " + usuario.NombreUsuario);
-                    return true;
-                }
+                MessageBox.Show("Bienvenido " + usuario.NombreUsuario);
+                return true;
             }
 
-            // Si no se encuentra el usuario, mostramos un mensaje de error
             MessageBox.Show("Correo o contraseña incorrectos");
             return false;
         }

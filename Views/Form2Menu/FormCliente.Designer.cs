@@ -36,17 +36,17 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.ventas_softDataSet = new SoftVentas.ventas_softDataSet();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.clienteIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombreCompletoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefono2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clienteBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ventas_softDataSet1 = new SoftVentas.ventas_softDataSet1();
             this.ventassoftDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ventassoftDataSetBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.clienteTableAdapter = new SoftVentas.ventas_softDataSet1TableAdapters.clienteTableAdapter();
             this.button2 = new System.Windows.Forms.Button();
+            this.clienteIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombreCompletoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono1DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono2DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mailDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.ventas_softDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.clienteBindingSource)).BeginInit();
@@ -120,37 +120,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(544, 150);
             this.dataGridView1.TabIndex = 10;
             // 
-            // clienteIDDataGridViewTextBoxColumn
-            // 
-            this.clienteIDDataGridViewTextBoxColumn.DataPropertyName = "ClienteID";
-            this.clienteIDDataGridViewTextBoxColumn.HeaderText = "ClienteID";
-            this.clienteIDDataGridViewTextBoxColumn.Name = "clienteIDDataGridViewTextBoxColumn";
-            this.clienteIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nombreCompletoDataGridViewTextBoxColumn
-            // 
-            this.nombreCompletoDataGridViewTextBoxColumn.DataPropertyName = "NombreCompleto";
-            this.nombreCompletoDataGridViewTextBoxColumn.HeaderText = "NombreCompleto";
-            this.nombreCompletoDataGridViewTextBoxColumn.Name = "nombreCompletoDataGridViewTextBoxColumn";
-            // 
-            // telefono1DataGridViewTextBoxColumn
-            // 
-            this.telefono1DataGridViewTextBoxColumn.DataPropertyName = "Telefono1";
-            this.telefono1DataGridViewTextBoxColumn.HeaderText = "Telefono1";
-            this.telefono1DataGridViewTextBoxColumn.Name = "telefono1DataGridViewTextBoxColumn";
-            // 
-            // telefono2DataGridViewTextBoxColumn
-            // 
-            this.telefono2DataGridViewTextBoxColumn.DataPropertyName = "Telefono2";
-            this.telefono2DataGridViewTextBoxColumn.HeaderText = "Telefono2";
-            this.telefono2DataGridViewTextBoxColumn.Name = "telefono2DataGridViewTextBoxColumn";
-            // 
-            // mailDataGridViewTextBoxColumn
-            // 
-            this.mailDataGridViewTextBoxColumn.DataPropertyName = "Mail";
-            this.mailDataGridViewTextBoxColumn.HeaderText = "Mail";
-            this.mailDataGridViewTextBoxColumn.Name = "mailDataGridViewTextBoxColumn";
-            // 
             // clienteBindingSource
             // 
             this.clienteBindingSource.DataMember = "cliente";
@@ -184,6 +153,37 @@
             this.button2.Text = "Recargar";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // clienteIDDataGridViewTextBoxColumn
+            // 
+            this.clienteIDDataGridViewTextBoxColumn.DataPropertyName = "ClienteID";
+            this.clienteIDDataGridViewTextBoxColumn.HeaderText = "ClienteID";
+            this.clienteIDDataGridViewTextBoxColumn.Name = "clienteIDDataGridViewTextBoxColumn";
+            this.clienteIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nombreCompletoDataGridViewTextBoxColumn
+            // 
+            this.nombreCompletoDataGridViewTextBoxColumn.DataPropertyName = "NombreCompleto";
+            this.nombreCompletoDataGridViewTextBoxColumn.HeaderText = "NombreCompleto";
+            this.nombreCompletoDataGridViewTextBoxColumn.Name = "nombreCompletoDataGridViewTextBoxColumn";
+            // 
+            // telefono1DataGridViewTextBoxColumn
+            // 
+            this.telefono1DataGridViewTextBoxColumn.DataPropertyName = "Telefono1";
+            this.telefono1DataGridViewTextBoxColumn.HeaderText = "Telefono1";
+            this.telefono1DataGridViewTextBoxColumn.Name = "telefono1DataGridViewTextBoxColumn";
+            // 
+            // telefono2DataGridViewTextBoxColumn
+            // 
+            this.telefono2DataGridViewTextBoxColumn.DataPropertyName = "Telefono2";
+            this.telefono2DataGridViewTextBoxColumn.HeaderText = "Telefono2";
+            this.telefono2DataGridViewTextBoxColumn.Name = "telefono2DataGridViewTextBoxColumn";
+            // 
+            // mailDataGridViewTextBoxColumn
+            // 
+            this.mailDataGridViewTextBoxColumn.DataPropertyName = "Mail";
+            this.mailDataGridViewTextBoxColumn.HeaderText = "Mail";
+            this.mailDataGridViewTextBoxColumn.Name = "mailDataGridViewTextBoxColumn";
             // 
             // FormCliente
             // 
@@ -226,11 +226,11 @@
         private ventas_softDataSet1 ventas_softDataSet1;
         private System.Windows.Forms.BindingSource clienteBindingSource;
         private ventas_softDataSet1TableAdapters.clienteTableAdapter clienteTableAdapter;
+        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridViewTextBoxColumn clienteIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreCompletoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono1DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono2DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn mailDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button button2;
     }
 }

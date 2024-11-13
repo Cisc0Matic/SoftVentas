@@ -1,4 +1,5 @@
-﻿using SoftVentas.Repositories;
+﻿using SoftVentas.Persistence;
+using SoftVentas.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SoftVentas.Persistence;
 
 namespace SoftVentas.Views.Form2Menu
 {
@@ -43,6 +45,9 @@ namespace SoftVentas.Views.Form2Menu
         //eEvento del boton "agregar", cuando se apriete se guarda la info y se imprime el resultado en la lista
         private void button1_Click(object sender, EventArgs e)
         {
+            ClientesPersistence ClPer = new ClientesPersistence();
+
+Cliente cli = new Cliente(textBox1.Text, textBox2.Text, textBox4.Text, textBox3.Text);
             // Obtén los datos ingresados
             string nombreCliente = textBox1.Text.Trim();
             string telefono1 = textBox2.Text.Trim(); 
@@ -90,9 +95,9 @@ namespace SoftVentas.Views.Form2Menu
 
             // El método registroExitoso espera 2 int para tel1 y tel2, porque así lo hice en la BD
             bool registroExitoso = repositorio.AgregarCliente(nombreCliente, telefono1, telefono2, email);
-
-            repositorio.MostrarClientes();
-
+            ClPer.InsertarCliente(cli);
+            MessageBox.Show(repositorio.MostrarClientes(), "Clientes Registrados");     
+            dataGridView1.Refresh();
         }
 
         private void button2_Click(object sender, EventArgs e)

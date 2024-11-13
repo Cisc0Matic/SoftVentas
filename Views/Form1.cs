@@ -1,14 +1,16 @@
-﻿using SoftVentas.Repositories;
+﻿using SoftVentas.Persistence;
+using SoftVentas.Repositories;
 using SoftVentas.Views;
 using System;
 using System.Windows.Forms;
 
 namespace SoftVentas
-{
+{          
     public partial class Form1 : Form
     {
         bool isClickedOnce = false;
         bool isClickedOnce2 = false;
+        UsuariosPersistence pr = new UsuariosPersistence();
 
         // Repositorio alternativo que trabaja con una lista en memoria
         public UsuarioRepositorio repositorio;
@@ -16,10 +18,11 @@ namespace SoftVentas
         public Form1()
         {
             InitializeComponent();
+            pr.LeerArchivo();  // Cargar los datos al iniciar
             repositorio = new UsuarioRepositorio();
             // Inicializamos el repositorio en memoria
-            repositorio.UsuarioRepositorioAlternativo();
-            repositorio.mostrarListaUsuarios();
+           // repositorio.UsuarioRepositorioAlternativo();
+            //repositorio.mostrarListaUsuarios();
             InicializarFormulario();
         }
 
@@ -48,15 +51,14 @@ namespace SoftVentas
 
         private void button1_Click(object sender, EventArgs e)
         {
-          //  repositorio.mostrarListaUsuarios();
+            //  repositorio.mostrarListaUsuarios();
             // Manejo del inicio de sesión
             string email = textBox1.Text.Trim();
             string password = textBox2.Text.Trim();
+            Usuario usuario = pr.BuscarUsuario(email);
+            bool autenticado = repositorio.AutenticarUsuario(email, password) ;
 
-            // Usamos el repositorio alternativo en memoria para autenticar al usuario
-            bool autenticado = repositorio.AutenticarUsuario(email, password);
-
-            if (autenticado)
+            if (autenticado || usuario != null && usuario.Password == password)
             {
                 MessageBox.Show("Login exitoso!");
                 Form2 f2 = new Form2();
@@ -93,6 +95,10 @@ namespace SoftVentas
             string password = textBox2.Text.Trim();
             string email = textBox1.Text.Trim();
 
+            Usuario user = new Usuario(txtUser.Text,
+               textBox2.Text,
+                textBox1.Text);
+
             // Validaciones de los datos
             if (string.IsNullOrEmpty(nombreUsuario))
             {
@@ -116,6 +122,7 @@ namespace SoftVentas
             if (registroExitoso)
             {
                 MessageBox.Show("Usuario registrado exitosamente!");
+                pr.InsertarUsuario(user);
                 // Opcional: Ocultar campos después del registro
                 lblUser.Visible = false;
                 txtUser.Visible = false;
